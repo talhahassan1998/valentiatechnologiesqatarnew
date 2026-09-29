@@ -610,7 +610,13 @@ export const clientProof = {
 
 export const contactDetails = {
   location: 'Doha, Qatar',
-  responseTime: 'We reply to every enquiry within two business days.',
+  email: 'valentiatechnologiesqatar@gmail.com',
+  phone: '+923305855013',
+  whatsapp: '+923305855013',
+  // Web3Forms access keys are public by design (they only route to the
+  // registered inbox), so this is safe in client code.
+  web3formsKey: 'a1a79c61-e302-4441-9f87-aef94cc80d1c',
+  responseTime: 'We reply to every enquiry by email within two business days.',
   include: [
     'The systems you are running today',
     'What is not working, in practical terms',

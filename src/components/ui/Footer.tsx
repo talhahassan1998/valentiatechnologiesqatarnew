@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { products, sectors } from '@/data/content'
+import { contactDetails, products, sectors } from '@/data/content'
 import { asset } from '@/lib/asset'
 
 // Derived from the data rather than hand-copied, so the footer cannot drift
@@ -54,6 +54,12 @@ export function Footer() {
               Engineering intelligent healthcare software that connects people, data and
               clinical workflows.
             </p>
+            <a
+              href={`mailto:${contactDetails.email}`}
+              className="mt-4 inline-block text-sm text-v-ink-400 transition-colors duration-300 hover:text-white"
+            >
+              {contactDetails.email}
+            </a>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-3">

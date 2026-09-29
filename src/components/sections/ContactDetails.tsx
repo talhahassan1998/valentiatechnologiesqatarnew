@@ -26,6 +26,28 @@ export function ContactDetails() {
           <p className="mt-3 text-sm leading-relaxed text-v-ink-400">
             Serving healthcare providers across Qatar and the wider Gulf.
           </p>
+          <ul className="mt-5 flex flex-col gap-2 text-sm text-v-ink-300">
+            <li>
+              <a className="transition-colors hover:text-white" href={`mailto:${contactDetails.email}`}>
+                {contactDetails.email}
+              </a>
+            </li>
+            <li>
+              <a className="transition-colors hover:text-white" href={`tel:${contactDetails.phone}`}>
+                {contactDetails.phone}
+              </a>
+            </li>
+            <li>
+              <a
+                className="transition-colors hover:text-white"
+                href={`https://wa.me/${contactDetails.whatsapp.replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+              </a>
+            </li>
+          </ul>
         </div>
 
         <div data-col>

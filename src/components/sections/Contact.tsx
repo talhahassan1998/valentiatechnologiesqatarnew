@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap, revealChildren, useReducedMotion } from '@/lib/motion'
 import { Section, Eyebrow } from '@/components/ui/Primitives'
 import { RevealText } from '@/components/ui/RevealText'
+import { contactDetails } from '@/data/content'
 
 /**
- * Enquiry form. Posts to the Flask API when one is configured; until then it
- * validates and reports honestly rather than pretending to have sent.
+ * Enquiry form. Posts to Web3Forms, which emails the enquiry to the inbox the
+ * access key is registered to. Reports failure honestly rather than pretending.
  */
 export function Contact() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
@@ -26,27 +27,25 @@ export function Contact() {
     return () => ctx.revert()
   }, [reduced])
 
-  const endpoint = import.meta.env.VITE_API_URL
-
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form))
 
-    if (!endpoint) {
-      setStatus('error')
-      setMessage('The enquiry API is not configured yet. Please email us directly in the meantime.')
-      return
-    }
-
     setStatus('sending')
     try {
-      const res = await fetch(`${endpoint}/api/enquiries`, {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          access_key: contactDetails.web3formsKey,
+          subject: `New enquiry from ${data.name}`,
+          from_name: 'Valentia website',
+        }),
       })
-      if (!res.ok) throw new Error(`Request failed: ${res.status}`)
+      const body = await res.json()
+      if (!res.ok || !body.success) throw new Error(body.message ?? `Request failed: ${res.status}`)
       setStatus('sent')
       setMessage('Thank you — we will be in touch shortly.')
       form.reset()
