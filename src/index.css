@@ -144,24 +144,18 @@
   }
 
   /* ------------------------------------------------------------------
-     PARTNER CAROUSEL
-     The rail is positioned arithmetically, so card width and the centring
-     offset have to agree exactly. Declaring both from one variable keeps
-     them in step across breakpoints — a mismatch here shows up as the
-     focused card drifting off-centre rather than as a broken layout.
+     PARTNER MARQUEE
+     The partner list is rendered twice in a row and the track slides left by
+     exactly half its width, so the second copy lands where the first began
+     and the loop restarts with no visible jump.
 
-     One card on phones (the neighbours would be unreadable slivers), two from
-     `md`, three from `lg`.
-
-     `--per` is how many cards are visible; the card sizes itself off that one
-     number, so a breakpoint only ever changes `--per`. The track offset is
-     computed in JS from the measured card width rather than in `calc`,
-     because a percentage translate resolves against the track (7 cards wide),
-     not the rail — which silently puts the focused card a full card off
-     centre.
+     Cards size off the rail (cqw), not the track: the track is `w-max`, so a
+     percentage basis would resolve against its own content width.
+     One card visible on phones, two from `md`, three from `lg`.
      ------------------------------------------------------------------ */
   .partner-rail {
     --per: 1;
+    container-type: inline-size;
   }
 
   @media (width >= 48rem) {
@@ -176,11 +170,29 @@
     }
   }
 
-  /* flex-basis, not width: the card must divide the rail exactly, and
-     shrinking is disabled so seven of them overflow into a scrollable track
-     rather than compressing to fit. */
   .partner-card {
-    flex: 0 0 calc(100% / var(--per));
+    flex: 0 0 calc(100cqw / var(--per));
+  }
+
+  .partner-track {
+    animation: partner-marquee 45s linear infinite;
+  }
+
+  /* Hover or keyboard focus holds it still, so a card can be read. */
+  .partner-rail:hover .partner-track,
+  .partner-rail:focus-within .partner-track {
+    animation-play-state: paused;
+  }
+
+  /* Reduced motion: no drift; the rail scrolls by hand instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .partner-track {
+      animation: none;
+    }
+
+    .partner-rail {
+      overflow-x: auto;
+    }
   }
 
   /* ------------------------------------------------------------------
@@ -284,5 +296,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@keyframes partner-marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
