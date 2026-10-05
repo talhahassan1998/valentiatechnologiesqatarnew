@@ -42,7 +42,7 @@ jobs:
       # rather than shipping a broken bundle.
       - run: npm run build
         env:
-          # Switches vite.config.ts to the /valentiatechnologiesqatar/ base.
+          # Switches vite.config.ts to the /valentiatechnologiesqatarnew/ base.
           GITHUB_PAGES: 'true'
           # Browser-side Gemini key for the voice assistant. Set it under
           # Settings -> Secrets and variables -> Actions -> GEMINI_KEY.

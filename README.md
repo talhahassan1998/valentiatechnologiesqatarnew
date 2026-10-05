@@ -82,13 +82,13 @@ committed; each is inert on the wrong host.
 **GitHub Pages** is the live target, published by
 `.github/workflows/deploy.yml` on every push to `main`:
 
-<https://talhahassan1998.github.io/valentiatechnologiesqatar/>
+<https://talhahassan1998.github.io/valentiatechnologiesqatarnew/>
 
 Pages serves from a subdirectory rather than the domain root, which two things
 have to agree on:
 
 - `vite.config.ts` sets `base` from a `GITHUB_PAGES` env var, so asset URLs get
-  the `/valentiatechnologiesqatar/` prefix. It is an env var rather than a
+  the `/valentiatechnologiesqatarnew/` prefix. It is an env var rather than a
   hardcoded value because Vercel and Netlify serve from the root — a baked-in
   prefix would break both.
 - `src/main.tsx` derives the router `basename` from `import.meta.env.BASE_URL`,
