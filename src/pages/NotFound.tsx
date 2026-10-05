@@ -3,7 +3,7 @@ import { Button, Eyebrow, Section } from '@/components/ui/Primitives'
 export function NotFound() {
   return (
     <>
-      <title>Page not found — Valentia Technologies</title>
+      <title>Page not found | Valentia Technologies</title>
       <meta name="description" content="That page does not exist." />
       <Section className="flex min-h-[70svh] items-center pt-36">
         <div className="max-w-2xl">

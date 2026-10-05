@@ -14,24 +14,20 @@ export function Values() {
   }, [])
 
   return (
-    <Section id="values" className="border-t border-v-blue-400/12 scroll-mt-24">
+    <Section id="values" className=" scroll-mt-24">
       <SectionHeading
-        eyebrow="What we hold to"
         title="Four principles, applied consistently"
         lead="These are the positions we do not trade away under delivery pressure."
       />
 
       <div ref={root} className="mt-16 grid gap-x-16 gap-y-12 md:grid-cols-2">
-        {values.map((v, i) => (
+        {values.map((v) => (
           // These are indented list entries, not panels — there is no card
           // ground to lift, so the mark and heading carry the hover instead.
-          <div key={v.title} data-value className="group relative pl-14">
-            <span className="text-eyebrow absolute left-0 top-1 font-mono text-v-crimson-400">
-              {String(i + 1).padStart(2, '0')}
-            </span>
+          <div key={v.title} data-value className="group relative pl-8">
             {/* The V-fold, marking each principle. */}
             <svg
-              className="absolute left-0 top-8 transition-transform duration-500 group-hover:translate-y-0.5"
+              className="absolute left-0 top-3 transition-transform duration-500 group-hover:translate-y-0.5"
               width="12"
               height="10"
               viewBox="0 0 14 12"

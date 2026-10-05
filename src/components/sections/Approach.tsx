@@ -102,9 +102,8 @@ export function Approach() {
   }, [reduced])
 
   return (
-    <Section id="approach" className="border-t border-v-blue-400/12">
+    <Section id="approach" className="">
       <SectionHeading
-        eyebrow="How we work"
         title="Engineering discipline, applied to care"
         lead="Healthcare software fails when it is built at a distance from the clinical floor. Our process closes that distance."
       />
@@ -117,7 +116,7 @@ export function Approach() {
         >
           <div
             data-rail-fill
-            className="h-px origin-left scale-x-0 bg-gradient-to-r from-v-crimson-500 via-v-blue-500 to-v-blue-400"
+            className="h-px origin-left scale-x-0 bg-v-blue-500"
           />
         </div>
 
@@ -154,7 +153,7 @@ export function Approach() {
         {metrics.map((m) => (
           <div
             key={m.label}
-            className="group relative card-surface p-8"
+            className="group relative card-surface card-static p-8"
           >
             <div className="text-h2 font-display text-white">
               <CountUp value={m.value} />

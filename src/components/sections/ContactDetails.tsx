@@ -18,28 +18,28 @@ export function ContactDetails() {
   }, [])
 
   return (
-    <Section className="border-t border-v-blue-400/12 bg-v-ink-950">
+    <Section className=" bg-v-ink-950">
       <div ref={root} className="grid gap-12 md:grid-cols-3">
         <div data-col>
-          <h2 className="text-eyebrow font-mono uppercase text-v-blue-300">Where we are</h2>
+          <h2 className="text-eyebrow font-semibold text-white">Where we are</h2>
           <p className="mt-5 text-h3 text-white">{contactDetails.location}</p>
           <p className="mt-3 text-sm leading-relaxed text-v-ink-400">
             Serving healthcare providers across Qatar and the wider Gulf.
           </p>
-          <ul className="mt-5 flex flex-col gap-2 text-sm text-v-ink-300">
+          <ul className="mt-3 flex flex-col text-sm text-v-ink-300">
             <li>
-              <a className="transition-colors hover:text-white" href={`mailto:${contactDetails.email}`}>
+              <a className="inline-flex min-h-11 items-center transition-colors hover:text-white" href={`mailto:${contactDetails.email}`}>
                 {contactDetails.email}
               </a>
             </li>
             <li>
-              <a className="transition-colors hover:text-white" href={`tel:${contactDetails.phone}`}>
+              <a className="inline-flex min-h-11 items-center transition-colors hover:text-white" href={`tel:${contactDetails.phone}`}>
                 {contactDetails.phone}
               </a>
             </li>
             <li>
               <a
-                className="transition-colors hover:text-white"
+                className="inline-flex min-h-11 items-center transition-colors hover:text-white"
                 href={`https://wa.me/${contactDetails.whatsapp.replace(/\D/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export function ContactDetails() {
         </div>
 
         <div data-col>
-          <h2 className="text-eyebrow font-mono uppercase text-v-blue-300">Response</h2>
+          <h2 className="text-eyebrow font-semibold text-white">Response</h2>
           <p className="mt-5 text-sm leading-relaxed text-v-ink-300">
             {contactDetails.responseTime}
           </p>
@@ -61,7 +61,7 @@ export function ContactDetails() {
         </div>
 
         <div data-col>
-          <h2 className="text-eyebrow font-mono uppercase text-v-blue-300">
+          <h2 className="text-eyebrow font-semibold text-white">
             Helpful to include
           </h2>
           <ul className="mt-5 flex flex-col gap-3">

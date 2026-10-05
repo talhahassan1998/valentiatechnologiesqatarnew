@@ -17,6 +17,8 @@
     background-color: var(--color-v-ink-900);
     color: var(--color-v-ink-100);
     font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -44,7 +46,7 @@
   :focus-visible {
     outline: 2px solid var(--color-v-blue-400);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
   }
 
   canvas {
@@ -60,135 +62,61 @@
   }
 
   /* ------------------------------------------------------------------
-     CARD SURFACE
-     Eight sections repeated the same panel by hand: an ink-900 ground,
-     a hover shift to ink-800, and an absolutely-positioned gradient rule
-     that grew on hover. Defining it once means the whole site gains depth
-     from one edit, and the cards cannot drift apart again.
-
-     The lift is the only geometry that moves, and it is 3px: enough to
-     read as a raise against the neighbouring cells in a gap-px grid,
-     small enough that a row of six does not look like it is bouncing.
+     CARD SURFACE (Apple store-card grammar)
+     A flat parchment tile at 18px with a whisper hairline. No shadow, no
+     sheen, no lift: Apple keeps elevation for product imagery, and depth
+     comes from the surface change. Interactive cards answer hover with a
+     single ground step; static cards (`card-static`) do not answer at all.
      ------------------------------------------------------------------ */
   .card-surface {
     position: relative;
-    isolation: isolate;
-    border-radius: var(--radius-md);
-    /* The sheen and the underline are pseudo-elements pinned to the box, so
-       the corners must clip them — without this the bottom rule overshoots
-       the rounded edge and draws past the card. */
-    overflow: hidden;
-    /* Own border, now that the cards are separated. They used to sit in a
-       gap-px grid where a tinted parent showed through the 1px gap as a
-       shared hairline; rounded corners break that trick into visible
-       notches, so each card carries its own edge instead. */
-    border: 1px solid color-mix(in oklab, var(--color-v-blue-400) 12%, transparent);
-    /* Raised off the page ground, not level with it. This used to be
-       ink-900 — the same token as the body — so a card had a measured
-       1.00:1 contrast with the page behind it and read as a flat region
-       bounded by a hairline. ink-800 is the ramp's existing "raised panel"
-       step and inverts correctly in the light theme. */
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in oklab, var(--color-v-ink-500) 22%, transparent);
     background-color: var(--color-v-ink-800);
-    box-shadow: var(--shadow-sm);
-    transition:
-      background-color 0.5s var(--ease-brand),
-      border-color 0.5s var(--ease-brand),
-      transform 0.5s var(--ease-brand),
-      box-shadow 0.5s var(--ease-brand);
+    transition: background-color 0.3s var(--ease-brand);
   }
 
-  .card-surface:hover,
-  .card-surface:focus-visible {
-    border-color: color-mix(in oklab, var(--color-v-blue-400) 30%, transparent);
-  }
-
-  /* The sheen: a brand-tinted wash rising from the lower-left, plus a
-     brighter top edge. Sits at -1 so card content always paints over it.
-     Fading a pseudo-element in beats animating a background, which would
-     repaint the whole panel every frame. */
-  .card-surface::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    opacity: 0;
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in oklab, var(--color-v-blue-400) 14%, transparent) 0%,
-        transparent 1px
-      ),
-      radial-gradient(
-        130% 100% at 0% 100%,
-        color-mix(in oklab, var(--color-v-blue-600) 16%, transparent) 0%,
-        transparent 62%
-      );
-    transition: opacity 0.5s var(--ease-brand);
-  }
-
-  /* Hover lightens one further step. Was ink-800, which is now the
-     resting value — without this a hovered card would not change ground. */
   .card-surface:hover,
   .card-surface:focus-visible {
     background-color: var(--color-v-ink-700);
   }
 
-  .card-surface:hover::before,
-  .card-surface:focus-visible::before {
-    opacity: 1;
-  }
-
-  /* The gradient hairline that draws in along the bottom edge. Was an
-     extra <span> in every card; as a pseudo-element it costs no markup. */
-  .card-surface::after {
-    content: '';
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    height: 1px;
-    width: 0;
-    background-image: linear-gradient(
-      to right,
-      var(--color-v-blue-500),
-      var(--color-v-crimson-500)
-    );
-    transition: width 0.55s var(--ease-brand);
-  }
-
-  .card-surface:hover::after,
-  .card-surface:focus-visible::after {
-    width: 100%;
-  }
-
-  /* Pointer-only lift. Touch devices get the colour and rule but no
-     transform: a raise that sticks after a tap reads as a stuck card. */
-  @media (hover: hover) and (pointer: fine) {
-    .card-surface:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-    }
-  }
-
-  /* Engagement sits on the ink-950 band, so its cards start a step deeper
-     than the ink-900 default and must not lighten to the shared value. */
-  .card-surface-deep {
-    background-color: var(--color-v-ink-950);
-  }
-
-  .card-surface-deep:hover,
-  .card-surface-deep:focus-visible {
+  .card-static:hover {
     background-color: var(--color-v-ink-800);
   }
 
+  /* Engagement sits on the deepest band, so its cards start a step deeper. */
+  .card-surface-deep,
+  .card-static.card-surface-deep:hover {
+    background-color: var(--color-v-ink-950);
+  }
 
-  /* Icons and marks that drift up as their card is hovered. */
+  .card-surface-deep:not(.card-static):hover {
+    background-color: var(--color-v-ink-800);
+  }
+
+  /* Alternating tiles: every second page section sits on parchment (the
+     colour change is the divider, as on Apple's pages). A card on a
+     parchment tile flips to the page ground so it still reads as a card. */
+  main > section:nth-of-type(even):not(.force-dark) {
+    background-color: var(--color-v-ink-800);
+  }
+
+  main > section:nth-of-type(even):not(.force-dark) .card-surface {
+    background-color: var(--color-v-ink-900);
+  }
+
+  main > section:nth-of-type(even):not(.force-dark) .card-surface:not(.card-static):hover {
+    background-color: var(--color-v-ink-700);
+  }
+
   .card-surface .card-icon {
-    transition: transform 0.5s var(--ease-brand);
+    transition: transform 0.4s var(--ease-brand);
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .card-surface:hover .card-icon {
-      transform: translateY(-2px) scale(1.06);
+    .card-surface:not(.card-static):hover .card-icon {
+      transform: scale(1.06);
     }
   }
 
@@ -196,44 +124,23 @@
     text-wrap: balance;
   }
 
-  /* ------------------------------------------------------------------
-     BUTTON SHEEN
-     A light band sweeps across the filled button on hover. Transform-only
-     (the band is pre-positioned off-frame), so it composites on the GPU
-     rather than repainting the fill.
-     ------------------------------------------------------------------ */
-  .btn-sheen {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
+  /* Generated illustrations are rendered on white, so each sits on its own
+     white plate (Apple's store-card grammar) in both themes. Blending the
+     white away is not reliable: reveal and parallax transforms isolate the
+     image from the section behind it. On white tiles the plate disappears. */
+  .illo {
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+    padding: 0.75rem;
   }
 
-  .btn-sheen::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    transform: translateX(-100%);
-    background: linear-gradient(
-      100deg,
-      transparent 20%,
-      rgb(255 255 255 / 0.22) 50%,
-      transparent 80%
-    );
+  /* Pressed feedback: Apple's system-wide scale-down. */
+  .btn-press {
+    transition-property: background-color, border-color, color, transform;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .btn-sheen:hover::after {
-      transform: translateX(100%);
-      transition: transform 0.75s var(--ease-brand);
-    }
-  }
-
-  /* Pressed feedback. Applies on touch too — this is the one place a
-     transform on tap is wanted, since it resolves the moment the finger
-     lifts. */
   .btn-press:active {
-    transform: translateY(1px);
+    transform: scale(0.96);
   }
 
   /* ------------------------------------------------------------------
@@ -336,51 +243,35 @@
     content: url('/valentia-logo.png');
   }
 
-  /* The scrolled nav bar. 85% alpha reads as frosted glass on the dark
-     ground, but on a light one the page shows straight through it — so
-     light mode gets a near-opaque bar instead. */
+  /* Frosted nav bar (Apple's sub-nav): the page ground at 80% under a
+     blur, so content passing beneath reads through it. */
   .nav-scrolled {
-    background-color: color-mix(in srgb, var(--color-v-ink-900) 85%, transparent);
-  }
-
-  [data-theme='light'] .nav-scrolled {
-    background-color: color-mix(in srgb, var(--color-v-ink-900) 97%, transparent);
+    background-color: color-mix(in srgb, var(--color-v-ink-900) 80%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
   }
 
   /* The hero stays dark in both themes — see palette.ts. Re-declaring the
      ink scale on the subtree means its existing utility classes resolve to
      the dark values without touching any of its markup. */
   [data-theme='light'] .force-dark {
-    --color-v-ink-950: #07080f;
-    --color-v-ink-900: #0b0d1a;
-    --color-v-ink-800: #12152a;
-    --color-v-ink-700: #1b1f3d;
-    --color-v-ink-600: #272c52;
-    --color-v-ink-500: #3a4070;
-    --color-v-ink-400: #5f6699;
-    --color-v-ink-300: #8f95bd;
-    --color-v-ink-200: #c2c6de;
-    --color-v-ink-100: #e2e4f0;
-    --color-v-ink-50: #eff0fe;
+    /* Dark-theme ink values; keep in step with tokens.css @theme. */
+    --color-v-ink-950: #000000;
+    --color-v-ink-900: #0b0b0c;
+    --color-v-ink-800: #1d1d1f;
+    --color-v-ink-700: #2c2c2e;
+    --color-v-ink-600: #3a3a3c;
+    --color-v-ink-500: #636366;
+    --color-v-ink-400: #a1a1a6;
+    --color-v-ink-300: #d2d2d7;
+    --color-v-ink-200: #e8e8ed;
+    --color-v-ink-100: #f5f5f7;
+    --color-v-ink-50: #ffffff;
     --color-white: #fff;
     --color-v-blue-400: #6b73ef;
     --color-v-blue-300: #949af3;
     --color-v-crimson-400: #d95d7e;
-
-    /* The shadow scale has to come back with the ink scale. The light
-       theme re-tints it for a white ground; on this subtree the ground is
-       dark again, so an un-restored shadow would be far too faint to read
-       under a raised card. Same values as the dark default. */
-    --shadow-sm:
-      0 1px 2px -1px color-mix(in oklab, var(--color-v-ink-950) 28%, transparent),
-      0 2px 6px -2px color-mix(in oklab, var(--color-v-ink-950) 20%, transparent);
-    --shadow-md:
-      0 1px 0 0 color-mix(in oklab, var(--color-v-blue-400) 20%, transparent),
-      0 4px 12px -4px color-mix(in oklab, var(--color-v-ink-950) 34%, transparent),
-      0 18px 40px -24px color-mix(in oklab, var(--color-v-ink-950) 60%, transparent);
-    --shadow-lg:
-      0 12px 32px -8px color-mix(in oklab, var(--color-v-ink-950) 42%, transparent),
-      0 32px 64px -32px color-mix(in oklab, var(--color-v-ink-950) 55%, transparent);
+    --shadow-lg: 0 12px 40px -12px rgb(0 0 0 / 0.28);
   }
 }
 

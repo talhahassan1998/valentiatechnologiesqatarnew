@@ -2,7 +2,7 @@
 
 Corporate site for Valentia Technologies (healthcare software, Qatar).
 React 19 + TypeScript + Vite + Tailwind v4 + React Router 7, GSAP/ScrollTrigger,
-Lenis, Three.js via React Three Fiber.
+Lenis. Hero film and illustrations generated with Higgsfield.
 
 **Read `README.md` first** — stack, brand hexes, `src/` structure, routing
 rules and deployment notes live there and are not repeated here.
@@ -29,8 +29,9 @@ typecheck in the pipeline. `npm run lint` is oxlint, not eslint.
   `<ScrollRestoration>`.
 - **`RouteTransition` owns ScrollTrigger lifecycle.** Individual sections must
   not call `ScrollTrigger.refresh()` in their own cleanup.
-- Keep Three.js off the critical path — the hero canvas is lazy-loaded on
-  purpose. Don't import from `components/hero/` outside that boundary.
+- The home hero is a scroll-scrubbed frame film (`public/frames/hero/`, played
+  by `src/lib/useFrameSequence.ts`), generated with Higgsfield from a render of
+  the logo V. There is no Three.js any more; don't add it back for decoration.
 - Deep-link rewrites are committed for both hosts (`vercel.json`,
   `public/_redirects`); keep them in sync if routes change.
 

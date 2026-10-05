@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "src/index.css"
+        ],
+        "createdAt": "2026-09-30T07:23:13.957Z",
+        "reason": "agent triage: .logo-themed uses CSS content:url() to swap the logo per theme; there is no <img> with an empty src"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-09-30T08:14:42.701Z",
+        "reason": "agent triage: user chose the Apple design language; its DESIGN.md names Inter as the open fallback behind -apple-system/SF Pro (recorded in project DESIGN.md)"
+      }
+    ]
+  }
+}

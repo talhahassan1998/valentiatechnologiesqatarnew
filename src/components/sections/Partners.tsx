@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { gsap, useReducedMotion } from '@/lib/motion'
-import { AmbientWash, Section, SectionDivider, SectionHeading } from '@/components/ui/Primitives'
+import { Section, SectionHeading } from '@/components/ui/Primitives'
 import { partners, partnersIntro } from '@/data/content'
 import { asset } from '@/lib/asset'
 
@@ -18,7 +18,6 @@ import { asset } from '@/lib/asset'
  * animated imperatively, so an interrupted transition cannot strand a card.
  */
 
-const CYCLE_MS = 3600
 /** Cards rendered either side of the focused one before they are clipped. */
 const NEIGHBOURS = 2
 
@@ -30,7 +29,6 @@ export function Partners() {
   // Card width and rail width, measured. Both start at 0, which renders the
   // rail unshifted — the correct first frame, since card 0 is already leftmost.
   const [metrics, setMetrics] = useState({ card: 0, rail: 0 })
-  const paused = useRef(false)
   const reduced = useReducedMotion()
   const count = partners.length
 
@@ -64,6 +62,16 @@ export function Partners() {
     [count],
   )
 
+  // Autoplay. Paused while hovered or focused so it never moves under the
+  // reader; off entirely for reduced motion. Re-keyed on `active` so a manual
+  // click restarts the interval instead of advancing again a moment later.
+  const [paused, setPaused] = useState(false)
+  useEffect(() => {
+    if (reduced || paused) return
+    const id = window.setTimeout(() => go(1), 3500)
+    return () => window.clearTimeout(id)
+  }, [reduced, paused, active, go])
+
   useEffect(() => {
     if (!root.current) return
     const el = root.current
@@ -89,16 +97,6 @@ export function Partners() {
     return () => ctx.revert()
   }, [reduced])
 
-  // Auto-advance. Paused on hover/focus so a reader inspecting one partner is
-  // not carried off it, and skipped entirely under reduced motion.
-  useEffect(() => {
-    if (reduced) return
-    const id = window.setInterval(() => {
-      if (!paused.current) go(1)
-    }, CYCLE_MS)
-    return () => window.clearInterval(id)
-  }, [reduced, go])
-
   // Keyboard: the rail is a focusable group, so arrow keys move it.
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
@@ -112,16 +110,9 @@ export function Partners() {
 
   return (
     <Section id="partners" className="relative overflow-hidden scroll-mt-24"
-      backdrop={
-        <>
-          <AmbientWash from="top-right" hue="blue" />
-          <SectionDivider />
-        </>
-      }
     >
-      <div className="flex flex-wrap items-end justify-between gap-8">
+      <div className="flex flex-col items-center gap-8">
         <SectionHeading
-          eyebrow="Who we build on"
           title="Technology partners"
           lead={partnersIntro}
         />
@@ -137,10 +128,10 @@ export function Partners() {
       <div
         ref={root}
         className="mt-16"
-        onMouseEnter={() => (paused.current = true)}
-        onMouseLeave={() => (paused.current = false)}
-        onFocusCapture={() => (paused.current = true)}
-        onBlurCapture={() => (paused.current = false)}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
       >
         {/* The viewport. Masked at both edges so cards dissolve rather than
             being cut off by a hard boundary. */}
@@ -176,7 +167,7 @@ export function Partners() {
                         : 'scale-90 opacity-20'
                   }`}
                 >
-                  <PartnerCard partner={p} index={i} focused={isActive} />
+                  <PartnerCard partner={p} focused={isActive} />
                 </article>
               )
             })}
@@ -199,7 +190,7 @@ export function Partners() {
               <span
                 className={`block h-px rounded-full transition-all duration-500 ease-[var(--ease-brand)] ${
                   i === active
-                    ? 'w-10 bg-gradient-to-r from-v-blue-500 to-v-crimson-500'
+                    ? 'w-10 bg-v-blue-500'
                     : 'w-5 bg-v-blue-400/25 group-hover/tick:bg-v-blue-400/60'
                 }`}
               />
@@ -217,29 +208,19 @@ export function Partners() {
  */
 function PartnerCard({
   partner,
-  index,
   focused,
 }: {
   partner: (typeof partners)[number]
-  index: number
   focused: boolean
 }) {
   return (
     <div
       className={`relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border transition-all duration-700 ease-[var(--ease-brand)] motion-reduce:transition-none ${
         focused
-          ? 'border-v-blue-400/30 bg-v-ink-800 shadow-[0_28px_60px_-30px_var(--color-v-blue-950)]'
-          : 'border-v-blue-400/12 bg-v-ink-900'
+          ? 'border-v-ink-500/40 bg-v-ink-800'
+          : 'border-v-ink-500/25 bg-v-ink-900'
       }`}
     >
-      {/* Brand edge, drawn only on the focused card — the same device the
-          section dividers and the CTA panel use. */}
-      <span
-        aria-hidden="true"
-        className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-v-blue-500 to-v-crimson-500 transition-opacity duration-700 ${
-          focused ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
 
       {/* Taller plate with tighter gutters, so the mark is the thing you see.
           The logos are 324x144 artwork; capping the height well under that
@@ -267,9 +248,6 @@ function PartnerCard({
 
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex items-center gap-3">
-          <span className="text-eyebrow font-mono text-v-blue-400">
-            {String(index + 1).padStart(2, '0')}
-          </span>
           <h3 className="text-h3 text-white">{partner.name}</h3>
         </div>
         <p className="text-sm leading-relaxed text-v-ink-300">{partner.body}</p>
@@ -293,7 +271,7 @@ function CarouselButton({
       onClick={onClick}
       aria-label={label}
       // 44px, so it clears the touch-target minimum without a padding overlay.
-      className="btn-press flex h-11 w-11 items-center justify-center rounded-[var(--radius-md)] border border-v-blue-400/20 text-v-ink-300 transition-all duration-300 hover:border-v-blue-400 hover:bg-v-blue-600/10 hover:text-white"
+      className="btn-press flex h-11 w-11 items-center justify-center rounded-[var(--radius-md)] border border-v-ink-500/35 text-v-ink-300 transition-all duration-300 hover:border-v-blue-400 hover:bg-v-blue-600/10 hover:text-white"
     >
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path

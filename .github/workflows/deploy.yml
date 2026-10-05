@@ -44,6 +44,9 @@ jobs:
         env:
           # Switches vite.config.ts to the /valentiatechnologiesqatar/ base.
           GITHUB_PAGES: 'true'
+          # Browser-side Gemini key for the voice assistant. Set it under
+          # Settings -> Secrets and variables -> Actions -> GEMINI_KEY.
+          VITE_GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
 
       # GitHub Pages serves static files with no rewrite rule, so a deep link
       # like /services asks for a file that does not exist. Serving index.html

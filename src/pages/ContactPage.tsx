@@ -5,7 +5,7 @@ import { ContactDetails } from '@/components/sections/ContactDetails'
 export function ContactPage() {
   return (
     <>
-      <title>Contact — Valentia Technologies</title>
+      <title>Contact | Valentia Technologies</title>
       <meta
         name="description"
         content="Get in touch with Valentia Technologies about healthcare software, clinical systems and integration work in Qatar and the Gulf."

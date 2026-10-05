@@ -3,6 +3,7 @@ import { gsap, revealChildren } from '@/lib/motion'
 import { Section } from '@/components/ui/Primitives'
 import { capabilities, serviceDetail } from '@/data/content'
 import { asset } from '@/lib/asset'
+import { TiltImage } from '@/components/ui/TiltImage'
 
 type Capability = (typeof capabilities)[number]
 type Detail = (typeof serviceDetail)[string]
@@ -33,7 +34,7 @@ export function ServiceDetail({
   }, [])
 
   return (
-    <Section id={item.id} className="border-t border-v-blue-400/12 scroll-mt-24">
+    <Section id={item.id} className=" scroll-mt-24">
       <div
         ref={root}
         className={`grid gap-12 lg:grid-cols-[0.9fr_1fr] lg:gap-20 ${
@@ -41,14 +42,17 @@ export function ServiceDetail({
         }`}
       >
         <div data-reveal>
+          {'illustration' in item && typeof item.illustration === 'string' ? (
+            <TiltImage src={item.illustration} className="mb-2 w-full max-w-xs" />
+          ) : (
           <div className="flex items-center gap-3">
             {/* Products carry an icon; the service capabilities do not. */}
             {'icon' in item && typeof item.icon === 'string' && (
               <img src={asset(item.icon)} alt="" width="26" height="27" className="h-9 w-9" />
             )}
-            <span className="text-eyebrow font-mono text-v-blue-400">{item.index}</span>
             <span className="h-px w-12 bg-v-blue-400/25" aria-hidden="true" />
           </div>
+          )}
 
           <h2 className="text-h2 mt-6 text-white">{item.title}</h2>
           <p className="text-lead mt-6 text-v-ink-300">{item.body}</p>
@@ -68,10 +72,10 @@ export function ServiceDetail({
 
           <div className="grid gap-10 sm:grid-cols-2">
             <div>
-              <h3 className="text-eyebrow font-mono uppercase text-v-blue-300">
+              <h3 className="text-eyebrow font-semibold text-white">
                 What we build
               </h3>
-              <ul className="mt-5 flex flex-col gap-3 border-t border-v-blue-400/12 pt-5">
+              <ul className="mt-5 flex flex-col gap-3 border-t border-v-ink-500/25 pt-5">
                 {detail.deliverables.map((d) => (
                   <li key={d} className="text-sm leading-relaxed text-v-ink-300">
                     {d}
@@ -81,7 +85,7 @@ export function ServiceDetail({
             </div>
 
             <div>
-              <h3 className="text-eyebrow font-mono uppercase text-v-crimson-400">
+              <h3 className="text-eyebrow font-semibold text-white">
                 What changes
               </h3>
               <ul className="mt-5 flex flex-col gap-3 border-t border-v-crimson-500/20 pt-5">

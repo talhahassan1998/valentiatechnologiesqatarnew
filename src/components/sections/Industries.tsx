@@ -27,15 +27,6 @@ export function Industries() {
     return () => ctx.revert()
   }, [])
 
-  useEffect(() => {
-    if (reduced) return
-    const id = window.setInterval(() => {
-      // Hover wins.
-      if (hovered.current !== null) return
-      setActive((i) => (i + 1) % industries.length)
-    }, CYCLE_MS)
-    return () => window.clearInterval(id)
-  }, [reduced])
 
   // Cross-fade: the outgoing image fades under the incoming one.
   //
@@ -78,15 +69,14 @@ export function Industries() {
   }
 
   return (
-    <Section id="industries" className="border-t border-v-blue-400/12">
+    <Section id="industries" className="">
       <SectionHeading
-        eyebrow="Where we work"
         title="Across the care continuum"
         lead="From single clinics to connected public health programmes, the same engineering standards apply."
       />
 
       <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_minmax(0,26rem)] lg:items-start lg:gap-16">
-        <div ref={root} className="border-t border-v-blue-400/12">
+        <div ref={root} className="border-t border-v-ink-500/25">
           {industries.map((ind, i) => (
             <div
               key={ind.name}
@@ -95,7 +85,7 @@ export function Industries() {
               onMouseLeave={release}
               onFocus={() => show(i)}
               onBlur={release}
-              className={`group grid cursor-default items-baseline gap-2 border-b border-v-blue-400/12 py-7 transition-colors duration-400 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-8 md:px-4 ${
+              className={`group grid cursor-default items-baseline gap-2 border-b border-v-ink-500/25 py-7 transition-colors duration-400 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-8 md:px-4 ${
                 active === i ? 'bg-v-ink-800/60' : 'hover:bg-v-ink-800/60'
               }`}
             >
@@ -114,7 +104,7 @@ export function Industries() {
         {/* Image panel. Sticky so it stays beside the list on tall viewports. */}
         <div
           ref={panel}
-          className="relative hidden aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-v-blue-400/12 bg-v-ink-950 lg:block lg:sticky lg:top-28"
+          className="relative hidden aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-v-ink-500/25 bg-v-ink-950 lg:block lg:sticky lg:top-28"
           aria-hidden="true"
         >
           {industries.map((ind, i) => (
@@ -141,7 +131,7 @@ export function Industries() {
           />
 
           <div className="pointer-events-none absolute bottom-0 left-0 right-0 flex items-center gap-3 p-5">
-            <span className="text-eyebrow font-mono uppercase text-v-blue-300">
+            <span className="text-eyebrow font-semibold text-white">
               {industries[active].name}
             </span>
             <span className="h-px flex-1 bg-v-blue-400/25" />

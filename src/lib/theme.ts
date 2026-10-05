@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react'
 
 /**
  * Theme state. The attribute lives on <html> so the CSS override in
- * tokens.css applies, and the choice is persisted per browser.
+ * tokens.css applies.
  *
- * Dark is the brand default, so only an explicit light choice is stamped —
- * absence of the attribute means dark.
+ * Light is the default; dark only when the visitor picks it with the toggle.
+ * The choice is stored only on toggle — the old key was written on every
+ * load, so it holds values nobody chose and is deliberately not read.
  */
 
 export type Theme = 'dark' | 'light'
 
-const KEY = 'valentia-theme'
+const KEY = 'valentia-theme-choice' // keep in sync with the script in index.html
 
 export function readTheme(): Theme {
   try {
-    const stored = localStorage.getItem(KEY)
-    if (stored === 'light' || stored === 'dark') return stored
+    if (localStorage.getItem(KEY) === 'dark') return 'dark'
   } catch {
-    // Private mode or blocked storage — fall through to the system preference.
+    // Private mode or blocked storage — use the default.
   }
-  return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  return 'light'
 }
 
 export function applyTheme(theme: Theme) {
@@ -27,21 +27,27 @@ export function applyTheme(theme: Theme) {
   if (theme === 'light') root.setAttribute('data-theme', 'light')
   else root.removeAttribute('data-theme')
   root.style.colorScheme = theme
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', theme === 'light' ? '#f7f8fd' : '#0b0d1a')
 }
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() =>
-    typeof window === 'undefined' ? 'dark' : readTheme(),
+    typeof window === 'undefined' ? 'light' : readTheme(),
   )
 
-  useEffect(() => {
-    applyTheme(theme)
+  useEffect(() => applyTheme(theme), [theme])
+
+  const toggle = () => {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
     try {
-      localStorage.setItem(KEY, theme)
+      localStorage.setItem(KEY, next)
     } catch {
       // Nothing to do — the theme still applies for this session.
     }
-  }, [theme])
+  }
 
-  return [theme, () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))] as const
+  return [theme, toggle] as const
 }

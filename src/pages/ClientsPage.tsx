@@ -6,7 +6,7 @@ import { ContactCta } from '@/components/sections/ContactCta'
 export function ClientsPage() {
   return (
     <>
-      <title>Clients — Valentia Technologies</title>
+      <title>Clients | Valentia Technologies</title>
       <meta
         name="description"
         content="250 general practices, national ambulance services and community care providers across New Zealand, Australia, the South Pacific, Ireland, South Africa, Qatar and Dubai."

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, parallax, ScrollTrigger, useReducedMotion } from '@/lib/motion'
-import { Eyebrow } from '@/components/ui/Primitives'
 import { anatomyLayers } from '@/data/content'
 import { asset } from '@/lib/asset'
 
@@ -62,7 +61,7 @@ export function DigitalAnatomy() {
       // headroom, which on a section this tall pushes it ~200px past each edge.
       // Unclipped it bleeds the dark texture down over the next section's
       // heading — visible as a grey band once this section became force-dark.
-      className="force-dark relative overflow-hidden border-t border-v-blue-400/12 bg-v-ink-950"
+      className="force-dark relative overflow-hidden bg-v-ink-950"
       aria-label="The digital anatomy of healthcare"
     >
       {/* Ambient network texture (Higgsfield, brand-palette locked). Low opacity
@@ -79,9 +78,7 @@ export function DigitalAnatomy() {
           page opening at 96px while every other section opened at 128px. */}
       <div data-pin className="relative min-h-[100svh] px-6 py-24 md:px-12 md:py-32">
         <div className="mx-auto max-w-7xl">
-          <Eyebrow>The digital anatomy of healthcare</Eyebrow>
-
-          <div className="mt-12 grid items-center gap-14 lg:grid-cols-[1fr_1.05fr]">
+          <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.05fr]">
             {/* Layer copy */}
             <div className="flex flex-col gap-8">
               {anatomyLayers.map((layer, i) => {
@@ -98,12 +95,12 @@ export function DigitalAnatomy() {
                     }`}
                   >
                     <div className="flex items-baseline gap-3">
-                      <span className="text-eyebrow font-mono uppercase text-v-blue-300">
+                      <span className="text-eyebrow font-semibold text-white">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                       {/* v-ink-300, not 400: this is 12px mono, and the dimmed
                           inactive rows push 400 under the contrast floor. */}
-                      <span className="text-eyebrow font-mono uppercase text-v-ink-300">
+                      <span className="text-eyebrow font-semibold text-v-ink-300">
                         {layer.label}
                       </span>
                     </div>

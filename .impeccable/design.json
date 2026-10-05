@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-30T08:14:15.536Z",
+  "title": "Design System: Valentia Technologies",
+  "extensions": {
+    "colorMeta": {
+      "action-blue": {
+        "role": "primary",
+        "displayName": "Action Blue (logo)"
+      },
+      "emphasis-crimson": {
+        "role": "secondary",
+        "displayName": "Emphasis Crimson"
+      },
+      "parchment": {
+        "role": "neutral",
+        "displayName": "Parchment"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home hero headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page heroes and the closing call to action."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "One page-hero eyebrow, footer heads, form labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "var(--shadow-lg)",
+        "purpose": "Dropdowns and the voice panel only."
+      },
+      {
+        "name": "product",
+        "value": "var(--shadow-product)",
+        "purpose": "Imagery resting on a surface."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-brand",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All state transitions and reveals."
+      },
+      {
+        "name": "duration-state",
+        "value": "300-500ms",
+        "purpose": "Hover and focus changes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one action style; contact and primary navigation.",
+      "html": "<button class=\"ds-btn-primary\"><span>Get in Touch</span><svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M1 7h11M8 3l4 4-4 4\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:10px;background:#3d47d5;color:#fff;border:0;border-radius:9999px;padding:0 22px;height:44px;font:500 14px/1 Inter,system-ui,sans-serif;letter-spacing:.025em;transition:all .3s cubic-bezier(.16,1,.3,1);cursor:pointer}.ds-btn-primary:hover{background:#4e58eb;transform:translateY(-2px);outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary navigation next to a primary button.",
+      "html": "<button class=\"ds-btn-ghost\">Explore Services</button>",
+      "css": ".ds-btn-ghost{background:transparent;color:#1d1d1f;border:1px solid rgba(145,149,184,.6);border-radius:9999px;padding:0 22px;height:44px;font:500 14px/1 Inter,system-ui,sans-serif;letter-spacing:.025em;transition:all .3s cubic-bezier(.16,1,.3,1);cursor:pointer}.ds-btn-ghost:hover{border-color:#4e58eb;background:rgba(61,71,213,.1);transform:translateY(-2px)}.ds-btn-ghost:focus-visible{outline:2px solid #4e58eb;outline-offset:3px}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Interactive collection item: product, sector, service.",
+      "html": "<div class=\"ds-card\" tabindex=\"0\"><h3>indici</h3><p>A true cloud-based electronic health record, integrated across every clinical and administrative part of a practice.</p></div>",
+      "css": ".ds-card{position:relative;overflow:hidden;max-width:360px;background:#f5f5f7;border:1px solid rgba(78,88,235,.12);border-radius:8px;padding:40px;transition:all .5s cubic-bezier(.16,1,.3,1)}.ds-card h3{margin:0;font:600 24px/1.2 'Inter Tight',Inter,sans-serif;letter-spacing:-.015em;color:#1d1d1f}.ds-card p{margin:16px 0 0;font:400 14px/1.65 Inter,sans-serif;color:#636366}.ds-card::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:linear-gradient(to right,#4e58eb,#ba3959);transition:width .55s cubic-bezier(.16,1,.3,1)}.ds-card:hover,.ds-card:focus-visible{background:#dfe2f2;border-color:rgba(78,88,235,.3);transform:translateY(-3px)}.ds-card:hover::after,.ds-card:focus-visible::after{width:100%}"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Product and region tags.",
+      "html": "<span class=\"ds-chip\">Spectrum</span>",
+      "css": ".ds-chip{display:inline-block;border:1px solid rgba(78,88,235,.2);border-radius:4px;padding:6px 12px;font:400 12px/1 Inter,sans-serif;color:#636366}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Contact form field with mono label above.",
+      "html": "<label class=\"ds-field\"><span>Name</span><input placeholder=\"Your name\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;max-width:320px}.ds-field span{font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#5a5f85}.ds-field input{background:#f5f5f7;border:0;border-bottom:1px solid rgba(78,88,235,.25);border-radius:4px;padding:12px;font:400 15px Inter,sans-serif;color:#1d1d1f}.ds-field input:focus-visible{outline:2px solid #4e58eb;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clinical Gallery",
+    "overview": "Apple gallery grammar applied to healthcare software: near-invisible UI, generous air, one idea per full-bleed tile. Neutral white and parchment surfaces, near-black tiles at night; the colour change is the divider. Valentia logo blue is the only action colour and crimson is emphasis, once per view.",
+    "keyCharacteristics": [
+      "Neutral surfaces, no tinted greys.",
+      "One action colour: logo blue.",
+      "Flat pill buttons; press scales to 0.96.",
+      "SF Pro on Apple devices, Inter elsewhere; body 17px.",
+      "Centred headings, alternating white/parchment tiles, no section borders.",
+      "No decorative gradients or UI shadows."
+    ],
+    "rules": [
+      {
+        "name": "The One Action Rule",
+        "body": "Signal blue marks what can be acted on. If it is blue and not interactive, it is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The Crimson Ration Rule",
+        "body": "Crimson appears at most once per viewport as emphasis. Two crimson moments in one screen cancel each other out.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ramp Not Hex Rule",
+        "body": "Components reference the ink ramp (--color-v-ink-*), never a literal neutral, so both themes stay correct from one token set.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Eyebrow Rule",
+        "body": "A mono uppercase eyebrow appears once per page, in the page hero. Section headings stand on their own.",
+        "section": "typography"
+      },
+      {
+        "name": "The Weight Not Size Rule",
+        "body": "Hierarchy inside a section comes from weight and ink step, not from adding a larger size.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lift Means Live Rule",
+        "body": "Only interactive surfaces lift on hover. A card that lifts must go somewhere or do something.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do take every colour and type size from src/styles/tokens.css.",
+      "Do keep signal blue for actions and crimson for a single emphasis per screen.",
+      "Do check every new surface in both themes; light is the default.",
+      "Do honour prefers-reduced-motion for every reveal, lift and loop.",
+      "Do give uneven collections a grid that leaves no empty cell."
+    ],
+    "donts": [
+      "Don't add an eyebrow above section headings; one per page, in the hero.",
+      "Don't number unordered collections (\"01\", \"02\"); numbers are for real sequences only.",
+      "Don't use em dashes in visible copy.",
+      "Don't use pure black shadows or warm greys.",
+      "Don't give two buttons with the same destination different labels.",
+      "Don't auto-advance content (captions, carousels); the reader moves it.",
+      "Don't add section-wide radial glow washes; surfaces stay quiet.",
+      "Don't repeat the same collection as cards in two sections; map it once."
+    ]
+  }
+}

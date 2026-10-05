@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, revealChildren, useReducedMotion } from '@/lib/motion'
-import { Section, Eyebrow } from '@/components/ui/Primitives'
+import { Section } from '@/components/ui/Primitives'
 import { RevealText } from '@/components/ui/RevealText'
 import { contactDetails } from '@/data/content'
 
@@ -47,7 +47,7 @@ export function Contact() {
       const body = await res.json()
       if (!res.ok || !body.success) throw new Error(body.message ?? `Request failed: ${res.status}`)
       setStatus('sent')
-      setMessage('Thank you — we will be in touch shortly.')
+      setMessage('Thank you. We will be in touch shortly.')
       form.reset()
     } catch {
       setStatus('error')
@@ -59,18 +59,16 @@ export function Contact() {
   // inputs rather than floating rules, and the focused field lifts out of the
   // page instead of only changing its underline colour.
   const field =
-    'w-full rounded-[var(--radius-sm)] border-b border-v-ink-600 bg-v-ink-800/40 px-3 py-3 text-white placeholder:text-v-ink-500 transition-all duration-300 hover:bg-v-ink-800/70 focus:border-v-blue-400 focus:bg-v-ink-800/80 focus:shadow-[0_6px_20px_-12px_var(--color-v-blue-500)] focus:outline-none'
+    'w-full rounded-[var(--radius-md)] border border-v-ink-500 bg-v-ink-900 px-4 py-3 text-white placeholder:text-v-ink-400 transition-colors duration-200 focus:border-v-blue-400 focus:outline-none focus:ring-4 focus:ring-v-blue-400/20'
 
   return (
-    <Section id="contact" className="border-t border-v-blue-400/12">
+    <Section id="contact" className="">
       <div ref={root} className="grid gap-16 lg:grid-cols-[0.85fr_1fr]">
         <div>
-          <Eyebrow>Get in touch</Eyebrow>
           <RevealText
             as="h2"
-            className="text-h1 mt-6 text-white"
+            className="text-h1 text-white"
             lines={['Let’s talk about your', 'healthcare systems.']}
-            accentLast
           />
           <p data-reveal className="text-lead mt-6 max-w-md text-v-ink-300">
             Tell us what you are working on. We will respond with a considered view, not a
@@ -78,7 +76,7 @@ export function Contact() {
           </p>
 
           <div data-reveal className="mt-10 flex flex-col gap-2 text-sm text-v-ink-400">
-            <span className="text-eyebrow font-mono uppercase text-v-blue-300">Qatar</span>
+            <span className="text-eyebrow font-semibold text-white">Qatar</span>
             <span>Valentia Technologies</span>
             <span>Software Development</span>
           </div>
@@ -87,11 +85,11 @@ export function Contact() {
         <form data-reveal onSubmit={onSubmit} className="flex flex-col gap-7">
           <div className="grid gap-7 sm:grid-cols-2">
             <label className="flex flex-col gap-2">
-              <span className="text-eyebrow font-mono uppercase text-v-ink-400">Name</span>
+              <span className="text-eyebrow font-semibold text-v-ink-400">Name</span>
               <input name="name" required autoComplete="name" className={field} placeholder="Your name" />
             </label>
             <label className="flex flex-col gap-2">
-              <span className="text-eyebrow font-mono uppercase text-v-ink-400">Email</span>
+              <span className="text-eyebrow font-semibold text-v-ink-400">Email</span>
               <input
                 name="email"
                 type="email"
@@ -104,12 +102,14 @@ export function Contact() {
           </div>
 
           <label className="flex flex-col gap-2">
-            <span className="text-eyebrow font-mono uppercase text-v-ink-400">Organisation</span>
+            <span className="text-eyebrow font-semibold text-v-ink-400">
+              Organisation <span className="normal-case tracking-normal">(optional)</span>
+            </span>
             <input name="organisation" autoComplete="organization" className={field} placeholder="Hospital, clinic or company" />
           </label>
 
           <label className="flex flex-col gap-2">
-            <span className="text-eyebrow font-mono uppercase text-v-ink-400">
+            <span className="text-eyebrow font-semibold text-v-ink-400">
               What are you working on?
             </span>
             <textarea
@@ -125,7 +125,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="btn-sheen btn-press rounded-[var(--radius-md)] bg-v-blue-600 px-7 py-3.5 text-sm font-medium text-on-brand shadow-[0_8px_30px_-8px_var(--color-v-blue-600)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-v-blue-500 hover:shadow-[0_14px_38px_-10px_var(--color-v-blue-500)] disabled:translate-y-0 disabled:opacity-60 disabled:shadow-none"
+              className="btn-press min-h-11 rounded-full bg-v-blue-600 px-[1.375rem] text-base text-on-brand duration-200 hover:bg-v-blue-500 disabled:opacity-60"
             >
               {status === 'sending' ? 'Sending…' : 'Send Enquiry'}
             </button>

@@ -5,7 +5,7 @@ Corporate website for Valentia Technologies — healthcare software, Qatar.
 ## Stack
 
 React 19 · TypeScript · Vite · Tailwind v4 · React Router 7 · GSAP +
-ScrollTrigger · Lenis · Three.js / React Three Fiber / Drei
+ScrollTrigger · Lenis
 
 ## Running
 
@@ -37,20 +37,23 @@ garbage pixels for it.
 src/
 ├── styles/tokens.css      brand tokens (colour, type scale, motion)
 ├── lib/
-│   ├── vGeometry.ts       the logo V rebuilt from its traced proportions
+│   ├── useFrameSequence.ts hero film frame loader + canvas scrubber
 │   └── motion.ts          Lenis + GSAP setup, reduced-motion hooks,
 │                          RouteTransition (scroll + ScrollTrigger on navigate)
 ├── pages/                 one component per route
 ├── components/
-│   ├── hero/              3D "Digital Healthcare Core" (code-split)
+│   ├── hero/              home hero (scroll film + copy)
 │   ├── sections/          composable page sections
 │   └── ui/                nav, footer, shared primitives
 └── data/content.ts        all site copy
 ```
 
-Four routes: `/`, `/services`, `/about`, `/contact`. The hero canvas is
-lazy-loaded so Three.js stays out of the critical path (136 kB gzip initial,
-277 kB deferred on the homepage only).
+Eight routes: `/`, `/solutions`, `/sectors`, `/services`, `/clients`,
+`/partners`, `/about`, `/contact`. The home hero is a scroll-scrubbed film:
+121 WebP frames in `public/frames/hero/` (~1.6 MB, fetched after first paint)
+drawn to a canvas by `src/lib/useFrameSequence.ts`. Product and sector
+illustrations live in `public/illustrations/`. Both were generated with
+Higgsfield (Kling v3 clips from a render of the logo V; Recraft stills).
 
 ### Routing notes
 

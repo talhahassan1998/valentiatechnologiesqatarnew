@@ -26,7 +26,7 @@ export const capabilities = [
     id: 'ai',
     index: '04',
     title: 'Applied AI',
-    body: 'Machine intelligence applied where it changes outcomes — triage support, documentation, and workflow automation.',
+    body: 'Machine intelligence applied where it changes outcomes: triage support, documentation and workflow automation.',
     points: ['Clinical documentation AI', 'Predictive risk models', 'Intelligent automation'],
   },
   {
@@ -63,7 +63,7 @@ export const anatomyLayers = [
     id: 'data',
     label: 'Data',
     title: 'The clinical record',
-    body: 'Results, notes, medications and history — structured so they remain meaningful wherever they travel.',
+    body: 'Results, notes, medications and history, structured so they remain meaningful wherever they travel.',
   },
   {
     id: 'exchange',
@@ -84,16 +84,8 @@ export const anatomyLayers = [
  * can carry the crimson accent, matching the About page's page hero.
  */
 export const positioning = {
-  eyebrow: 'Who we are',
   lead: 'Healthcare runs on software.',
   rest: 'We build the systems that clinicians, administrators and patients depend on every day.',
-  // Deliberately not `metrics` — that array renders further down the same page
-  // in Clients, and repeating it would show the same figures twice on one scroll.
-  proof: [
-    { value: 'Clinical-first', label: 'Built around care workflows, not retrofitted onto them' },
-    { value: 'HL7 & FHIR', label: 'Systems that exchange patient information safely' },
-    { value: 'Qatar-based', label: 'Engineering locally, deployed across three continents' },
-  ],
 }
 
 export const metrics = [
@@ -143,7 +135,7 @@ export const approach = [
   },
   {
     step: 'Architect',
-    body: 'Systems designed for interoperability, auditability and change — because healthcare requirements never stand still.',
+    body: 'Systems designed for interoperability, auditability and change, because healthcare requirements never stand still.',
   },
   {
     step: 'Engineer',
@@ -184,7 +176,7 @@ export const serviceDetail: Record<
       'HL7 v2 interface development',
       'FHIR R4 APIs and resource modelling',
       'Integration engine deployment and tuning',
-      'Terminology mapping — SNOMED, LOINC, ICD',
+      'Terminology mapping (SNOMED, LOINC, ICD)',
       'Health information exchange connectivity',
     ],
     outcomes: [
@@ -259,11 +251,11 @@ export const serviceDetail: Record<
 export const story = [
   {
     heading: 'Less paperwork, more patient care',
-    body: 'Valentia Technologies has been building healthcare software since 2004, from a straightforward observation: most clinical systems are designed at a distance from the floor they end up running on, and it shows in every workaround a nurse invents to get through a shift. We build the other way round — time spent in the department first, architecture second.',
+    body: 'Valentia Technologies has been building healthcare software since 2004, from a straightforward observation: most clinical systems are designed at a distance from the floor they end up running on, and it shows in every workaround a nurse invents to get through a shift. We build the other way round: time spent in the department first, architecture second.',
   },
   {
     heading: 'A suite, not a single system',
-    body: 'Care does not happen in one setting, so neither does our software. indici for primary care, InnovaCare for home care, Spectrum for telehealth and triage, Vivasta for community services, CareMonX for emergency response and Maha for oncology — six platforms that share standards and speak to each other.',
+    body: 'Care does not happen in one setting, so neither does our software. indici for primary care, InnovaCare for home care, Spectrum for telehealth and triage, Vivasta for community services, CareMonX for emergency response and Maha for oncology. Six platforms that share standards and speak to each other.',
   },
   {
     heading: 'Global footprint, local delivery',
@@ -287,7 +279,7 @@ export const values = [
   },
   {
     title: 'Innovation',
-    body: 'Cloud, mobile and machine intelligence applied where they remove work or catch what a person would miss — and nowhere else.',
+    body: 'Cloud, mobile and machine intelligence applied where they remove work or catch what a person would miss, and nowhere else.',
   },
   {
     title: 'Integrity',
@@ -303,7 +295,7 @@ export const engagement = [
   },
   {
     model: 'Systems integration',
-    body: 'Connecting systems that were never designed to speak to each other — interface engineering, terminology mapping and migration.',
+    body: 'Connecting systems that were never designed to speak to each other: interface engineering, terminology mapping and migration.',
   },
   {
     model: 'Managed operations',
@@ -319,6 +311,7 @@ export const products = [
   {
     id: 'indici',
     icon: '/solutions/indici.svg',
+    illustration: '/illustrations/indici.webp',
     index: '01',
     title: 'indici',
     body: 'A true cloud-based electronic health record, richly integrated across every clinical and administrative part of a practice.',
@@ -327,14 +320,16 @@ export const products = [
   {
     id: 'innovacare',
     icon: '/solutions/innovacare.svg',
+    illustration: '/illustrations/innovacare.webp',
     index: '02',
     title: 'InnovaCare',
-    body: 'Home care management for private and public providers — scheduling, case management, rehabilitation, payroll and client monitoring in one platform.',
+    body: 'Home care management for private and public providers: scheduling, case management, rehabilitation, payroll and client monitoring in one platform.',
     points: ['Client & staff management', 'Scheduling and payroll', 'Quality of care monitoring'],
   },
   {
     id: 'spectrum',
     icon: '/solutions/spectrum.svg',
+    illustration: '/illustrations/spectrum.webp',
     index: '03',
     title: 'Spectrum',
     body: 'Telehealth and case management for clinical and mental health services, turning referrals and service requests into cases that can be triaged and tracked.',
@@ -343,14 +338,16 @@ export const products = [
   {
     id: 'vivasta',
     icon: '/solutions/vivasta.svg',
+    illustration: '/illustrations/vivasta.webp',
     index: '04',
     title: 'Vivasta',
-    body: 'Community healthcare delivery end to end — referrals, patient records, logistics and field communication, on web and mobile.',
+    body: 'Community healthcare delivery end to end: referrals, patient records, logistics and field communication, on web and mobile.',
     points: ['Referral management', 'Nursing and field apps', 'Remote patient monitoring'],
   },
   {
     id: 'caremonx',
     icon: '/solutions/caremonx.svg',
+    illustration: '/illustrations/caremonx.webp',
     index: '05',
     title: 'CareMonX',
     body: 'An emergency care suite covering call taking and dispatch, resource mobilisation and electronic patient care reporting.',
@@ -359,6 +356,7 @@ export const products = [
   {
     id: 'maha',
     icon: '/solutions/maha.svg',
+    illustration: '/illustrations/maha.webp',
     index: '06',
     title: 'Maha',
     body: 'Cloud-based anti-cancer therapeutics, designed for both adult and paediatric populations, with clinical decision support throughout.',
@@ -375,7 +373,7 @@ export const productDetail: Record<
   { lead: string; deliverables: string[]; outcomes: string[] }
 > = {
   indici: {
-    lead: 'indici is a cloud-based, richly integrated electronic health record encompassing all clinical and administrative components of a practice — the next step in cloud EHR, built for unparalleled patient and practice management.',
+    lead: 'indici is a cloud-based, richly integrated electronic health record encompassing all clinical and administrative components of a practice. The next step in cloud EHR, built for unparalleled patient and practice management.',
     deliverables: [
       'Cloud-based EHR with access from any location',
       'Automated scheduling and billing workflows',
@@ -407,7 +405,7 @@ export const productDetail: Record<
     ],
   },
   spectrum: {
-    lead: 'Spectrum is tailored for clinical and mental health services, letting users create referrals and service requests that become cases — managed with safety plans, documents, notes and triage scores.',
+    lead: 'Spectrum is tailored for clinical and mental health services, letting users create referrals and service requests that become cases, managed with safety plans, documents, notes and triage scores.',
     deliverables: [
       'Full contact centre management',
       'Clinical decision support and triage',
@@ -423,7 +421,7 @@ export const productDetail: Record<
     ],
   },
   vivasta: {
-    lead: 'Vivasta manages every clinical and administrative aspect of community healthcare delivery — referrals, electronic patient records, logistics and communication, on web and mobile.',
+    lead: 'Vivasta manages every clinical and administrative aspect of community healthcare delivery: referrals, electronic patient records, logistics and communication, on web and mobile.',
     deliverables: [
       'Referral management and status tracking',
       'Centralised electronic patient records',
@@ -480,6 +478,7 @@ export const sectors = [
   {
     id: 'primary-care',
     icon: '/sectors/primary-care.svg',
+    illustration: '/illustrations/primary-care.webp',
     name: 'Primary Care',
     body: 'Advanced digital solutions for primary care providers, replacing fragmented records and manual process with one connected practice.',
     challenges: [
@@ -492,6 +491,7 @@ export const sectors = [
   {
     id: 'supported-living',
     icon: '/sectors/supported-living.svg',
+    illustration: '/illustrations/supported-living.webp',
     name: 'Supported Living',
     body: 'Tools for managing supported living services, from staff coordination through to quality monitoring and budget control.',
     challenges: [
@@ -504,8 +504,9 @@ export const sectors = [
   {
     id: 'out-of-hours-care',
     icon: '/sectors/out-of-hours-care.svg',
+    illustration: '/illustrations/out-of-hours-care.webp',
     name: 'Out of Hours Care',
-    body: 'Solutions for unplanned and after-hours care — triage, on-call coordination and telehealth when the practice is closed.',
+    body: 'Solutions for unplanned and after-hours care: triage, on-call coordination and telehealth when the practice is closed.',
     challenges: [
       'Managing high volumes of patient calls can be overwhelming',
       'Lack of coordination among care providers leads to inefficiencies',
@@ -516,8 +517,9 @@ export const sectors = [
   {
     id: 'community-care',
     icon: '/sectors/community-care.svg',
+    illustration: '/illustrations/community-care.webp',
     name: 'Community Care',
-    body: 'Comprehensive community healthcare — referrals, records, logistics and monitoring, coordinated across services and field teams.',
+    body: 'Comprehensive community healthcare: referrals, records, logistics and monitoring, coordinated across services and field teams.',
     challenges: [
       'Managing large volumes of patient data can be daunting',
       'Coordinating various community services is challenging',
@@ -528,6 +530,7 @@ export const sectors = [
   {
     id: 'emergency-care',
     icon: '/sectors/emergency-care.svg',
+    illustration: '/illustrations/emergency-care.webp',
     name: 'Emergency Care',
     body: 'Robust systems for emergency medical services, where response time and data accuracy decide the outcome.',
     challenges: [
@@ -586,16 +589,14 @@ export const partnersIntro =
 
 /** Who runs the software, and where. Used for the clients section. */
 export const clientProof = {
+  title: 'In service across seven regions since 2004',
   lead: "Valentia's diverse customer base spans an extensive range of healthcare disciplines and multiple continents, united by an interest in tapping the potential of modern technology to transform how healthcare is provided.",
-  relationship:
-    'Our relationship with our customers is deeply rooted in our strong partnership ethos and personal approach to all engagements.',
   proof: [
-    '250 general practices running indici',
-    'Community and age care delivered by nationwide providers',
+    'Ambulance services in South Africa, Qatar and Dubai',
     'National ambulance services powered by Valentia',
     'Out of hours and hospital services in Ireland',
     'General practices across Australia',
-    'Ambulance services in South Africa, Qatar and Dubai',
+    'Community and age care delivered by nationwide providers',
   ],
   regions: [
     'New Zealand',
@@ -623,4 +624,48 @@ export const contactDetails = {
     'Any regulatory or integration constraints',
     'Your timeline, if you have one',
   ],
+}
+
+/** Copy for the floating voice assistant (VoiceAssistant.tsx). */
+export const voiceAssistant = {
+  name: 'Jarvis',
+  label: 'Start voice assistant',
+  stopLabel: 'Stop voice assistant',
+  prompt: 'Click the mic and talk. It keeps listening until you click it again.',
+  placeholder: 'Type a question…',
+  listening: 'Listening… click the mic again to stop.',
+  thinking: 'Thinking…',
+  offline: "I can't reach my AI service right now. Please try again in a moment.",
+  greeting: 'Hello. I can tell you about Valentia or take you anywhere on the site.',
+  help: 'Try "tell me about indici", "open sectors", "what services do you offer" or "how do I contact you".',
+  fallback: "I didn't catch that. Say \"help\" to hear what I can do.",
+  noMic: 'Voice input is not supported in this browser. Type your question instead.',
+  micDenied: 'Microphone access was blocked. You can still type your question.',
+  wakeToggle: 'Always listen for "Hey Jarvis"',
+  wakeOn: 'Say "Hey Jarvis" followed by your question.',
+  // Words that route to each page. Checked after products, sectors and
+  // services, so "indici" beats the generic "solutions".
+  pages: [
+    { to: '/contact', name: 'Contact', words: ['contact', 'get in touch', 'enquiry', 'email', 'phone', 'call', 'whatsapp'] },
+    { to: '/solutions', name: 'Solutions', words: ['solution', 'product'] },
+    { to: '/sectors', name: 'Sectors', words: ['sector', 'industr'] },
+    { to: '/services', name: 'Services', words: ['service', 'capabilit', 'what do you do', 'what you do'] },
+    { to: '/clients', name: 'Clients', words: ['client', 'customer'] },
+    { to: '/partners', name: 'Partners', words: ['partner'] },
+    { to: '/about', name: 'About', words: ['about', 'who are you', 'company', 'story'] },
+    { to: '/', name: 'Home', words: ['home', 'start', 'main page'] },
+  ],
+}
+
+/** Home hero. One static message: what Valentia does, then the proof. */
+export const hero = {
+  kicker: 'Healthcare software, Doha',
+  title: 'Engineering Better Healthcare.',
+  lead: 'Six connected platforms for primary, home, community, emergency and cancer care, and telehealth. Built to HL7 and FHIR, in service since 2004.',
+}
+
+/** Home: the suite mapped onto the settings it serves (SuiteMap.tsx). */
+export const suiteMap = {
+  title: 'Six connected platforms, mapped to where care happens',
+  lead: 'Each setting runs the platform built for it, and every platform shares the same record and standards.',
 }

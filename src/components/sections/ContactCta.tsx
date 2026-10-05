@@ -1,34 +1,15 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { gsap, revealChildren, useReducedMotion } from '@/lib/motion'
-import { Section, Button, Eyebrow } from '@/components/ui/Primitives'
-
-// Code-split, like the hero canvas: Three.js must not reach the critical path.
-const VMarkScene = lazy(() =>
-  import('./VMarkScene').then((m) => ({ default: m.VMarkScene })),
-)
+import { useEffect, useRef } from 'react'
+import { gsap, revealChildren } from '@/lib/motion'
+import { Section, Button } from '@/components/ui/Primitives'
 
 /**
- * Tracks Tailwind's `lg` breakpoint. Not useIsCompact from lib/motion: that one
- * is pinned to 768px and is used to scale 3D instance counts, so it is not the
- * knob for whether this canvas mounts at all.
+ * Shared closing band. Every page ends somewhere; this is where.
+ *
+ * Apple's dark product tile: full-bleed near-black, one centred stack of
+ * headline, line and pill, with the logo's V resting beneath it the way a
+ * product sits under its name. The V is the logo's traced geometry (shared
+ * with the favicon and the 3D hero), so it costs nothing to load.
  */
-function useIsWide(): boolean {
-  const [wide, setWide] = useState(
-    () => typeof window !== 'undefined' && window.innerWidth >= 1024,
-  )
-
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)')
-    const onChange = () => setWide(mq.matches)
-    onChange()
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [])
-
-  return wide
-}
-
-/** Shared closing band. Every page ends somewhere; this is where. */
 export function ContactCta({
   title = 'Let us look at your systems together.',
   lead = 'Tell us what you are working on. We will respond with a considered view, not a sales pitch.',
@@ -37,8 +18,6 @@ export function ContactCta({
   lead?: string
 }) {
   const root = useRef<HTMLDivElement>(null)
-  const reduced = useReducedMotion()
-  const wide = useIsWide()
 
   useEffect(() => {
     if (!root.current) return
@@ -51,63 +30,33 @@ export function ContactCta({
   }, [])
 
   return (
-    <Section className="border-t border-v-blue-400/12">
-      <div
-        ref={root}
-        className="relative overflow-hidden rounded-[var(--radius-lg)] border border-v-blue-400/12 bg-v-ink-800/40 px-8 py-16 md:px-16 md:py-20"
-      >
-        {/* Brand wash, kept low so the type stays dominant. */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,color-mix(in_oklab,var(--color-v-crimson-900)_40%,transparent),transparent_65%)]"
-          aria-hidden="true"
-        />
-        {/* A second wash from the opposite corner, so the panel is lit from
-            two sides and does not fall flat across the middle. */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,color-mix(in_oklab,var(--color-v-blue-800)_32%,transparent),transparent_58%)]"
-          aria-hidden="true"
-        />
-        {/* Brand edge along the top of the panel. */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-v-crimson-500 via-v-blue-500 to-transparent"
-        />
-        {/* Copy left, turning mark right — the panel runs full width while the
-            copy caps at max-w-2xl, which left the right side empty. */}
-        <div className="relative grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
-          <div className="max-w-2xl">
-            <div data-cta>
-              <Eyebrow>Next step</Eyebrow>
-            </div>
-            <h2 data-cta className="text-h1 mt-6 text-white">
-              {title}
-            </h2>
-            <p data-cta className="text-lead mt-6 text-v-ink-300">
-              {lead}
-            </p>
-            <div data-cta className="mt-10 flex flex-wrap items-center gap-4">
-              <Button href="/contact">Start a Conversation</Button>
-              <Button href="/services" variant="ghost">
-                See What We Build
-              </Button>
-            </div>
-          </div>
-
-          {/* Shown from lg up: stacked under the buttons on narrow screens it
-              would only push the CTA down.
-
-              Mounted conditionally rather than hidden with `hidden lg:block`:
-              R3F measures its container once, and a canvas that mounts inside a
-              display:none box measures zero and never recovers — the media query
-              flipping to block fires no resize event. */}
-          {wide && (
-            <div data-cta className="h-[20rem]" aria-hidden="true">
-              <Suspense fallback={null}>
-                <VMarkScene reducedMotion={reduced} />
-              </Suspense>
-            </div>
-          )}
+    <Section className="force-dark bg-v-ink-800">
+      <div ref={root} className="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <h2 data-cta className="text-h1 font-semibold text-white">
+          {title}
+        </h2>
+        <p data-cta className="text-lead mt-5 max-w-2xl text-v-ink-400">
+          {lead}
+        </p>
+        <div data-cta className="mt-8">
+          <Button href="/contact">Get in Touch</Button>
         </div>
+
+        <svg
+          data-cta
+          viewBox="4 8 56 48"
+          className="mt-16 h-auto w-40 md:w-48"
+          aria-hidden="true"
+        >
+          <path
+            d="M6.00 16.40 L21.04 16.40 L35.03 43.36 L29.13 53.37 L26.78 53.37 L6.00 17.01 Z"
+            fill="var(--color-v-blue-600)"
+          />
+          <path
+            d="M42.80 10.63 L54.72 12.55 L58.00 16.40 L38.37 53.37 L30.06 53.37 L34.71 44.33 L47.99 18.71 L38.70 16.40 Z"
+            fill="var(--color-v-crimson-600)"
+          />
+        </svg>
       </div>
     </Section>
   )

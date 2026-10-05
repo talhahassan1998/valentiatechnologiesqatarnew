@@ -2,6 +2,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { Nav } from '@/components/ui/Nav'
 import { Preloader } from '@/components/ui/Preloader'
 import { Footer } from '@/components/ui/Footer'
+import { VoiceAssistant } from '@/components/ui/VoiceAssistant'
 import { RouteTransition, useSmoothScroll } from '@/lib/motion'
 import { Home } from '@/pages/Home'
 import { Services } from '@/pages/Services'
@@ -39,6 +40,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <VoiceAssistant />
     </>
   )
 }

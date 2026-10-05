@@ -27,7 +27,7 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-v-blue-400/12 bg-v-ink-950">
+    <footer className="relative bg-v-ink-800">
       {/* V-fold divider, the logo geometry as decoration. */}
       <div className="absolute inset-x-0 top-0 flex justify-center" aria-hidden="true">
         <svg width="60" height="26" viewBox="0 0 60 26" fill="none">
@@ -65,7 +65,7 @@ export function Footer() {
           <div className="grid gap-10 sm:grid-cols-3">
             {COLUMNS.map((col) => (
               <div key={col.title}>
-                <h3 className="text-eyebrow font-mono uppercase text-v-blue-300">
+                <h3 className="text-eyebrow font-semibold text-white">
                   {col.title}
                 </h3>
                 <ul className="mt-5 flex flex-col gap-3">
@@ -85,8 +85,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-v-blue-400/12 pt-8">
-          <p className="text-xs text-v-ink-500">
+        <div className="mt-16 border-t border-v-ink-500/25 pt-8">
+          <p className="text-xs text-v-ink-400">
             © {new Date().getFullYear()} Valentia Technologies. All rights reserved.
           </p>
         </div>

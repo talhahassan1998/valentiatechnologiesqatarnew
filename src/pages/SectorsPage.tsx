@@ -6,10 +6,10 @@ import { ContactCta } from '@/components/sections/ContactCta'
 export function SectorsPage() {
   return (
     <>
-      <title>Sectors — Valentia Technologies</title>
+      <title>Sectors | Valentia Technologies</title>
       <meta
         name="description"
-        content="Primary care, supported living, out of hours care, community care and emergency care — the settings Valentia Technologies builds for, and the platforms that serve each."
+        content="Primary care, supported living, out of hours care, community care and emergency care: the settings Valentia Technologies builds for, and the platforms that serve each."
       />
       <PageHero
         eyebrow="Where we work"

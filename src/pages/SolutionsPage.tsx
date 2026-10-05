@@ -7,10 +7,10 @@ import { products, productDetail } from '@/data/content'
 export function SolutionsPage() {
   return (
     <>
-      <title>Solutions — Valentia Technologies</title>
+      <title>Solutions | Valentia Technologies</title>
       <meta
         name="description"
-        content="indici, InnovaCare, Spectrum, Vivasta, CareMonX and Maha — six healthcare platforms covering primary care, home care, telehealth, community services, emergency response and oncology."
+        content="indici, InnovaCare, Spectrum, Vivasta, CareMonX and Maha: six healthcare platforms covering primary care, home care, telehealth, community services, emergency response and oncology."
       />
       <PageHero
         eyebrow="The suite"
@@ -20,7 +20,7 @@ export function SolutionsPage() {
             <span className="text-v-crimson-400">where care happens.</span>
           </>
         }
-        lead="A cloud EHR, home care management, telehealth and triage, community services, emergency response and anti-cancer therapeutics — engineered to interoperate rather than to stand alone."
+        lead="A cloud EHR, home care management, telehealth and triage, community services, emergency response and anti-cancer therapeutics, engineered to interoperate rather than to stand alone."
       />
 
       {products.map((p, i) => (

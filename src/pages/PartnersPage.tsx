@@ -6,7 +6,7 @@ import { ContactCta } from '@/components/sections/ContactCta'
 export function PartnersPage() {
   return (
     <>
-      <title>Partners — Valentia Technologies</title>
+      <title>Partners | Valentia Technologies</title>
       <meta
         name="description"
         content="Valentia works with Microsoft, VMware, Fortinet, Zerto, Veeam, Huawei and Rhipe to ensure clients benefit from consistently high-quality and secure services."

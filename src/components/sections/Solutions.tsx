@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap, revealChildren } from '@/lib/motion'
-import { AmbientWash, Button, Section, SectionDivider, SectionHeading } from '@/components/ui/Primitives'
+import { Button, Section, SectionHeading } from '@/components/ui/Primitives'
 import { products } from '@/data/content'
 import { asset } from '@/lib/asset'
 
@@ -21,17 +21,10 @@ export function Solutions() {
 
   return (
     <Section id="solutions" className="relative overflow-hidden scroll-mt-24"
-      backdrop={
-        <>
-          <AmbientWash from="top-right" hue="blue" />
-          <SectionDivider />
-        </>
-      }
     >
       <SectionHeading
-        eyebrow="What we build"
         title="Six platforms, one care record"
-        lead="From the general practice to the ambulance to the oncology ward — each platform is built for its setting, and all of them speak to each other."
+        lead="From the general practice to the ambulance to the oncology ward, each platform is built for its setting, and all of them speak to each other."
       />
 
       <div ref={root} className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -65,12 +58,11 @@ export function Solutions() {
             </div>
 
             <div className="mt-6 flex items-baseline gap-3">
-              <span className="text-eyebrow font-mono text-v-blue-400">{p.index}</span>
               <h3 className="text-h3 text-white">{p.title}</h3>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-v-ink-300">{p.body}</p>
 
-            <ul className="mt-7 flex flex-col gap-2.5 border-t border-v-blue-400/12 pt-5">
+            <ul className="mt-7 flex flex-col gap-2.5 border-t border-v-ink-500/25 pt-5">
               {p.points.map((pt) => (
                 <li key={pt} className="flex items-center gap-2.5 text-sm text-v-ink-400">
                   <span className="h-1 w-1 shrink-0 bg-v-blue-400" aria-hidden="true" />
@@ -85,7 +77,7 @@ export function Solutions() {
 
       <div className="mt-12">
         <Button href="/solutions" variant="ghost">
-          Explore the suite
+          Explore Solutions
         </Button>
       </div>
     </Section>

@@ -112,6 +112,9 @@ export function revealChildren(
   const { stagger = 0.08, y = 28, start = 'top 78%', scale } = opts
   const targets = root.querySelectorAll(selector)
   if (!targets.length) return
+  // One guard for every caller: under reduced motion the content is simply
+  // there, rather than each section remembering to check.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
   // Cards settle better rising *and* easing up to full size — the scale is
   // opt-in because it reads as fussy on a plain text block.

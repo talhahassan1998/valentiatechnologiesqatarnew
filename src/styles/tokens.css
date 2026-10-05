@@ -2,18 +2,20 @@
 
 /* ============================================================
    VALENTIA TECHNOLOGIES — BRAND TOKENS
-   Colors sampled directly from the official logo
-   (Picture1.png, 880x274, Adam7-interlaced PNG).
+   Design language: Apple-inspired (see DESIGN.md), carrying
+   Valentia's own brand accents.
 
-   Both hue families are hue-locked in the source mark:
-     blue    -> hue 236
-     crimson -> hue 343-345
-   The whole system derives from these two anchors, with
-   lightness + saturation doing the work.
+   Brand accents are sampled from the official logo and do not
+   change with the design language:
+     blue    -> hue 236  (the one action colour)
+     crimson -> hue 343-345 (emphasis only)
+
+   Surfaces are neutral, Apple-style: white and parchment by
+   day, near-black tiles by night. No tinted greys.
    ============================================================ */
 
 @theme {
-  /* --- Blue family (hue 236) — technology, trust, precision --- */
+  /* --- Blue family (hue 236) — the single action colour --- */
   --color-v-blue-50: #eff0fe;
   --color-v-blue-100: #dcdefc;
   --color-v-blue-200: #bcc0f9;
@@ -26,7 +28,7 @@
   --color-v-blue-900: #1a2170;
   --color-v-blue-950: #10143f;
 
-  /* --- Crimson family (hue 343-345) — humanity, confidence, energy --- */
+  /* --- Crimson family (hue 343-345) — emphasis, never a button --- */
   --color-v-crimson-50: #fdf2f5;
   --color-v-crimson-100: #fce7ec;
   --color-v-crimson-200: #f7c7d3;
@@ -39,87 +41,84 @@
   --color-v-crimson-900: #500c1f;
   --color-v-crimson-950: #2e0611;
 
-  /* --- Ink / neutrals: pulled toward hue 236 so darks stay in-family --- */
-  --color-v-ink-950: #07080f;
-  --color-v-ink-900: #0b0d1a; /* primary dark ground */
-  --color-v-ink-800: #12152a;
-  --color-v-ink-700: #1b1f3d;
-  --color-v-ink-600: #272c52;
-  --color-v-ink-500: #3a4070;
-  /* Lifted from #5f6699: this token carries 12-14px body copy in ~20 places,
-     where the old value sat at 3.3-3.7:1 on the dark grounds — under the 4.5:1
-     floor. #757cb0 clears it on ink-950/900/800 (4.5-5.0:1) and stays a step
-     below ink-300, so the secondary/primary hierarchy is unchanged. Hue 236
-     is preserved. */
-  --color-v-ink-400: #757cb0;
-  --color-v-ink-300: #8f95bd;
-  --color-v-ink-200: #c2c6de;
-  --color-v-ink-100: #e2e4f0;
-  --color-v-ink-50: #eff0fe; /* sampled: logo ground */
+  /* --- Ink: neutral surface + text ramp. These are the DARK
+     theme values; [data-theme='light'] below inverts them.
+     950-700 are grounds, 600-500 are rules, 400-50 are text. --- */
+  --color-v-ink-950: #000000; /* true black: nav on dark, void */
+  --color-v-ink-900: #0b0b0c; /* page ground */
+  --color-v-ink-800: #1d1d1f; /* raised tile / card */
+  --color-v-ink-700: #2c2c2e; /* hover step */
+  --color-v-ink-600: #3a3a3c;
+  --color-v-ink-500: #636366; /* rules only, never text */
+  --color-v-ink-400: #a1a1a6; /* secondary text: 6.5:1 on ink-800 */
+  --color-v-ink-300: #d2d2d7;
+  --color-v-ink-200: #e8e8ed;
+  --color-v-ink-100: #f5f5f7;
+  --color-v-ink-50: #ffffff;
 
-  /* --- Type --- */
-  --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  /* --- Type ---
+     -apple-system resolves to SF Pro on Apple devices; Inter is the
+     open substitute everywhere else (licensed, self-hostable). */
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
-  /* Fluid display scale — hero dominant, sections ~60% of hero */
-  --text-display: clamp(2.75rem, 9vw, 8.5rem);
-  --text-display--line-height: 0.92;
-  --text-display--letter-spacing: -0.04em;
+  /* Apple scale, fluid. Headlines weight 600 with tight tracking;
+     Inter runs a touch wider than SF Pro, hence the extra -0.01em. */
+  --text-display: clamp(2.5rem, 5.5vw, 4.5rem);
+  --text-display--line-height: 1.07;
+  --text-display--letter-spacing: -0.022em;
 
-  --text-h1: clamp(2.25rem, 5.5vw, 4.75rem);
-  --text-h1--line-height: 1.02;
-  --text-h1--letter-spacing: -0.03em;
+  --text-h1: clamp(2.25rem, 4.6vw, 3.5rem);
+  --text-h1--line-height: 1.07;
+  --text-h1--letter-spacing: -0.02em;
 
-  --text-h2: clamp(1.75rem, 3.4vw, 3.125rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.025em;
+  --text-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
 
-  --text-h3: clamp(1.25rem, 1.9vw, 1.75rem);
-  --text-h3--line-height: 1.2;
-  --text-h3--letter-spacing: -0.015em;
+  --text-h3: clamp(1.1875rem, 1.5vw, 1.3125rem);
+  --text-h3--line-height: 1.19;
+  --text-h3--letter-spacing: -0.005em;
 
-  --text-lead: clamp(1.0625rem, 1.5vw, 1.375rem);
-  --text-lead--line-height: 1.55;
+  --text-lead: clamp(1.125rem, 1.7vw, 1.5rem);
+  --text-lead--line-height: 1.4;
+  --text-lead--letter-spacing: -0.005em;
 
-  --text-eyebrow: 0.75rem;
-  --text-eyebrow--line-height: 1;
-  --text-eyebrow--letter-spacing: 0.18em;
+  /* Page-hero label above a headline (Apple's "tagline"). */
+  --text-tagline: clamp(1.0625rem, 1.4vw, 1.3125rem);
+  --text-tagline--line-height: 1.19;
+  --text-tagline--letter-spacing: -0.005em;
+
+  /* Small labels: form fields, footer column heads, list captions. */
+  --text-eyebrow: 0.875rem;
+  --text-eyebrow--line-height: 1.29;
+  --text-eyebrow--letter-spacing: -0.016em;
+
+  /* Body runs at 17px, not 16 — Apple's reading pace. */
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.47;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.47;
 
   /* --- Radius ---
-     Deliberately restrained. This is clinical infrastructure software, and
-     a pill-shaped enterprise UI reads as consumer-app soft — the corners
-     should take the hard edge off without giving up precision.
+     sm: compact utility (inputs, chips, nav panels)
+     md: dropdown panels, small plates
+     lg: cards and media — Apple's 18px store card
+     Buttons are full pills (rounded-full), set in the component. */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 
-     The scale is tied to element size, not chosen per component: small
-     controls get `sm`, panels and cards get `md`, large plates and media
-     get `lg`. Anything wider than a card would look slack at `lg`, so
-     there is deliberately no `xl`. `full` exists only for genuine pills
-     and dots (progress ticks, avatars). */
-  --radius-sm: 4px; /* chips, inputs, tight controls */
-  --radius-md: 8px; /* cards, buttons, dropdown panels */
-  --radius-lg: 14px; /* section plates, logo plates, media */
-
-  /* Elevation
-     Cards used to sit on the same value as the page ground (ink-900 on
-     ink-900 — a measured 1.00:1 contrast), held up by nothing but their
-     hairline border. These give the system the depth dimension it was
-     missing, and replace nine inline one-off shadow strings.
-
-     Tinted with ink-950 rather than black so shadows stay in the brand's
-     hue-236 family: a neutral black shadow reads grey against the blue
-     ground and dirties the palette. Alpha ramps with the blur to keep one
-     implied light source across all three steps. */
-  --shadow-sm:
-    0 1px 2px -1px color-mix(in oklab, var(--color-v-ink-950) 28%, transparent),
-    0 2px 6px -2px color-mix(in oklab, var(--color-v-ink-950) 20%, transparent);
-  --shadow-md:
-    0 1px 0 0 color-mix(in oklab, var(--color-v-blue-400) 20%, transparent),
-    0 4px 12px -4px color-mix(in oklab, var(--color-v-ink-950) 34%, transparent),
-    0 18px 40px -24px color-mix(in oklab, var(--color-v-ink-950) 60%, transparent);
-  --shadow-lg:
-    0 12px 32px -8px color-mix(in oklab, var(--color-v-ink-950) 42%, transparent),
-    0 32px 64px -32px color-mix(in oklab, var(--color-v-ink-950) 55%, transparent);
+  /* --- Elevation ---
+     Apple puts no shadow on cards, buttons or text; depth comes from
+     the surface-colour change. sm/md stay defined (components still
+     reference them) but are flat. lg is for floating overlays only;
+     product is the single shadow for imagery resting on a surface. */
+  --shadow-sm: 0 0 0 0 transparent;
+  --shadow-md: 0 0 0 0 transparent;
+  --shadow-lg: 0 12px 40px -12px rgb(0 0 0 / 0.28);
+  --shadow-product: 3px 5px 30px 0 rgb(0 0 0 / 0.22);
 
   /* Motion */
   --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
@@ -133,63 +132,43 @@
   --v-crimson: #9d1a40;
   --v-crimson-light: #ba3959;
   --v-crimson-deep: #831434;
-  --v-ground: #eff0fe;
-  --v-ink: #0b0d1a;
+  --v-ground: #ffffff;
+  --v-ink: #1d1d1f;
 }
 
 /* ============================================================
-   LIGHT THEME
-   The ink scale is the site's surface system: 950-800 are
-   grounds, 500-200 are text. Inverting that one ramp flips
-   every component at once, because nothing hardcodes a hex.
-
-   The blue and crimson families are hue anchors from the logo
-   and do NOT invert — only the two that carry text on a light
-   ground are darkened for contrast.
+   LIGHT THEME (the default for first-time visitors)
+   Inverting the ink ramp flips every component at once, because
+   nothing hardcodes a neutral.
 
    --color-white is remapped too: `text-white` is the heading
-   colour in 34 places, and would otherwise vanish on a light
-   ground.
+   colour throughout and would vanish on a light ground.
    ============================================================ */
 
 [data-theme='light'] {
-  /* Grounds, lightest first — mirrors the dark ramp's role order. */
-  --color-v-ink-950: #ffffff; /* deepest ground -> page white */
-  --color-v-ink-900: #f7f8fd; /* primary ground */
-  --color-v-ink-800: #eceef8; /* raised panel / hover */
-  --color-v-ink-700: #dfe2f2;
-  --color-v-ink-600: #c9cde6;
+  /* Grounds: white page, parchment tiles/cards. */
+  --color-v-ink-950: #ffffff;
+  --color-v-ink-900: #ffffff; /* page ground */
+  --color-v-ink-800: #f5f5f7; /* parchment: alternate tile, cards */
+  --color-v-ink-700: #e8e8ed; /* hover step */
+  --color-v-ink-600: #d2d2d7;
 
-  /* Text, darkest last — mirrors the dark ramp. */
-  --color-v-ink-500: #9195b8;
-  --color-v-ink-400: #5a5f85; /* secondary body */
-  --color-v-ink-300: #3f4468; /* primary body */
-  --color-v-ink-200: #262a47;
-  --color-v-ink-100: #14172b; /* body default */
-  --color-v-ink-50: #0b0d1a;
+  /* Text. ink-400 is the secondary label: 5.9:1 on white, 4.8:1 on
+     the hover step. ink-500 is for rules only. */
+  --color-v-ink-500: #86868b;
+  --color-v-ink-400: #636366;
+  --color-v-ink-300: #424245;
+  --color-v-ink-200: #333336;
+  --color-v-ink-100: #1d1d1f;
+  --color-v-ink-50: #1d1d1f;
 
   /* Headings. Tailwind's `text-white` resolves through this. */
-  --color-white: #0b0d1a;
+  --color-white: #1d1d1f;
 
-  /* Hairlines and eyebrows need more weight on a light ground —
-     v-blue-400 at 10-12% alpha is invisible on white. */
+  /* Blue text and rules need more weight on white. */
   --color-v-blue-400: #4e58eb;
   --color-v-blue-300: #3d47d5;
   --color-v-crimson-400: #9d1a40;
 
-  /* Elevation must be re-declared, not inherited: the dark scale tints
-     with ink-950, which inverts to #ffffff here — a white shadow, i.e.
-     none at all. These tint with blue-600 instead, so the shade stays in
-     the brand hue, and run at much lower alpha because a shadow that
-     reads correctly on a dark ground is heavy-handed on white. */
-  --shadow-sm:
-    0 1px 2px -1px color-mix(in oklab, var(--color-v-blue-600) 10%, transparent),
-    0 2px 6px -2px color-mix(in oklab, var(--color-v-blue-600) 8%, transparent);
-  --shadow-md:
-    0 1px 0 0 color-mix(in oklab, var(--color-v-blue-400) 22%, transparent),
-    0 4px 12px -4px color-mix(in oklab, var(--color-v-blue-600) 14%, transparent),
-    0 20px 44px -26px color-mix(in oklab, var(--color-v-blue-600) 34%, transparent);
-  --shadow-lg:
-    0 12px 32px -8px color-mix(in oklab, var(--color-v-blue-600) 16%, transparent),
-    0 32px 64px -32px color-mix(in oklab, var(--color-v-blue-600) 26%, transparent);
+  --shadow-lg: 0 12px 40px -12px rgb(0 0 0 / 0.14);
 }

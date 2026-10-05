@@ -7,7 +7,7 @@ import { capabilities } from '@/data/content'
 export function Services() {
   return (
     <>
-      <title>Services — Valentia Technologies</title>
+      <title>Services | Valentia Technologies</title>
       <meta
         name="description"
         content="Clinical systems, HL7 and FHIR interoperability, health data and analytics, applied AI, patient platforms, and security and compliance engineering for healthcare providers in Qatar."

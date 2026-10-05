@@ -8,7 +8,7 @@ import { ContactCta } from '@/components/sections/ContactCta'
 export function About() {
   return (
     <>
-      <title>About — Valentia Technologies</title>
+      <title>About | Valentia Technologies</title>
       <meta
         name="description"
         content="Valentia Technologies is a healthcare software company in Qatar, engineering clinical systems around how care teams actually work. Our story, approach and principles."
@@ -21,7 +21,7 @@ export function About() {
             <span className="text-v-crimson-400">We build it properly.</span>
           </>
         }
-        lead="A Qatar-based software company working exclusively in healthcare — because clinical systems fail in ways general-purpose engineering does not prepare you for."
+        lead="A Qatar-based software company working exclusively in healthcare, because clinical systems fail in ways general-purpose engineering does not prepare you for."
       />
 
       <Story />

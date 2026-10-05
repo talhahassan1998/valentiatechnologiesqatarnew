@@ -13,7 +13,7 @@ function ThemeToggle({ className = '' }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      className={`flex h-9 w-9 items-center justify-center text-v-ink-300 transition-colors hover:text-white ${className}`}
+      className={`flex h-11 w-11 items-center justify-center text-v-ink-300 transition-colors hover:text-white ${className}`}
       aria-label={light ? 'Switch to dark theme' : 'Switch to light theme'}
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -102,24 +102,33 @@ export function Nav() {
   // to be styled for one, whatever the page theme is.
   const overHero = pathname === '/' && !scrolled
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setOpenedAt(null)
+      const el = document.activeElement
+      if (el instanceof HTMLElement && el.closest('header nav')) el.blur()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'nav-scrolled border-b border-v-blue-400/12 backdrop-blur-xl'
-          : 'border-b border-transparent'
-      } ${overHero ? 'force-dark' : ''}`}
+      className={`nav-scrolled fixed inset-x-0 top-0 z-50 border-b border-v-ink-500/25 transition-colors duration-500 ${
+        overHero ? 'force-dark' : ''
+      }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
+      <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6 md:px-12">
         <Link to="/" className="flex items-center gap-3" aria-label="Valentia Technologies">
           <img
             src={asset("/valentia-logo.png")}
             alt="Valentia Technologies"
-            className="logo-themed h-8 w-auto md:h-9"
+            className="logo-themed h-7 w-auto"
           />
         </Link>
 
-        <div className="hidden items-center gap-9 md:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           {LINKS.map((l) => (
             // Hover and focus-within both open the panel, so the submenu is
             // reachable by keyboard without any open/close state.
@@ -128,7 +137,7 @@ export function Nav() {
                 to={l.to}
                 end={l.to === '/'}
                 className={({ isActive }) =>
-                  `relative flex items-center gap-1.5 text-sm transition-colors hover:text-white ${
+                  `relative flex items-center gap-1.5 text-xs transition-colors hover:text-white ${
                     isActive ? 'text-white' : 'text-v-ink-300'
                   }`
                 }
@@ -175,18 +184,14 @@ export function Nav() {
                       show through a tinted background and make it unreadable.
                       The top hairline is the brand gradient, so the panel reads
                       as part of the system rather than a generic dropdown. */}
-                  <div className="relative overflow-hidden rounded-[var(--radius-md)] border border-v-blue-400/12 bg-v-ink-900 py-2 shadow-[var(--shadow-lg)]">
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-v-crimson-500 via-v-blue-500 to-transparent"
-                    />
+                  <div className="relative overflow-hidden rounded-[var(--radius-md)] border border-v-ink-500/25 bg-v-ink-900 py-2 shadow-[var(--shadow-lg)]">
                     {l.children.map((c) => (
                       <Link
                         key={c.to}
                         to={c.to}
                         // Items slide a touch on hover, which gives the panel a
                         // sense of direction toward the page being opened.
-                        className="group/item flex items-center gap-3 px-5 py-2.5 text-sm text-v-ink-300 transition-all duration-300 hover:bg-v-ink-800 hover:pl-6 hover:text-white"
+                        className="group/item flex items-center gap-3 px-5 py-2.5 text-sm text-v-ink-300 transition-colors duration-300 hover:bg-v-ink-800 hover:text-white"
                       >
                         {c.icon && (
                           <img
@@ -208,18 +213,18 @@ export function Nav() {
           <ThemeToggle />
           <Link
             to="/contact"
-            className="btn-sheen btn-press rounded-[var(--radius-md)] bg-v-blue-600 px-5 py-2.5 text-sm font-medium text-on-brand shadow-[0_6px_22px_-8px_var(--color-v-blue-600)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-v-blue-500 hover:shadow-[0_12px_30px_-10px_var(--color-v-blue-500)]"
+            className="btn-press rounded-full bg-v-blue-600 px-4 py-1.5 text-xs text-on-brand duration-200 hover:bg-v-blue-500"
           >
             Get in Touch
           </Link>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpenedAt((v) => (v === pathname ? null : pathname))}
-            className="flex h-10 w-10 items-center justify-center"
+            className="flex h-11 w-11 items-center justify-center"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
           >
@@ -241,7 +246,10 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="nav-scrolled border-t border-v-blue-400/12 px-6 py-6 backdrop-blur-xl md:hidden">
+        <div
+          data-lenis-prevent
+          className="nav-scrolled max-h-[calc(100dvh-3.5rem)] overflow-y-auto overscroll-contain border-t border-v-ink-500/25 px-6 py-6 lg:hidden"
+        >
           <div className="flex flex-col gap-5">
             {LINKS.map((l) => (
               // Always expanded on mobile — an accordion here costs state and
@@ -257,7 +265,7 @@ export function Nav() {
                   {l.label}
                 </NavLink>
                 {l.children && (
-                  <div className="flex flex-col gap-3 border-l border-v-blue-400/12 pl-4">
+                  <div className="flex flex-col gap-3 border-l border-v-ink-500/25 pl-4">
                     {l.children.map((c) => (
                       <Link
                         key={c.to}
@@ -276,7 +284,7 @@ export function Nav() {
             ))}
             <Link
               to="/contact"
-              className="btn-press mt-2 rounded-[var(--radius-md)] bg-v-blue-600 px-5 py-3.5 text-center text-sm font-medium text-on-brand shadow-[0_6px_22px_-8px_var(--color-v-blue-600)]"
+              className="btn-press mt-2 flex min-h-11 items-center justify-center rounded-full bg-v-blue-600 px-5 text-base text-on-brand"
             >
               Get in Touch
             </Link>

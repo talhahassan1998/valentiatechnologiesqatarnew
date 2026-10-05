@@ -117,12 +117,12 @@ export function Preloader() {
       <div>
         <div
           data-pre-line
-          className="mb-6 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-v-blue-500 to-v-crimson-500"
+          className="mb-6 h-px w-full origin-left scale-x-0 bg-v-blue-500"
         />
         <div className="flex items-end justify-between">
           <span
             data-pre-label
-            className="text-eyebrow font-mono uppercase text-v-ink-400"
+            className="text-eyebrow font-semibold text-v-ink-400"
           >
             Valentia Technologies
           </span>
